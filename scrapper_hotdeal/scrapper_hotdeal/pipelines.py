@@ -7,7 +7,7 @@
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
 from hotdeal.models import ScrappingModel
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 class ScrapperHotdealPipeline:
@@ -26,14 +26,27 @@ class PreprocessingPipeline:
         cleaned_title = title.replace('\t', '').replace('\xa0', '').strip()
         return cleaned_title
 
-    # def clean_register_time(self, register_time):
-    #     cleaned_register_time = register_time.replace('\t', '').strip()
-    #     time_format = "%H:%M"
-    #     now = datetime.now()
-    #     current_time = now.strftime("%H:%M")
-
-    #     return cleaned_register_time
-    
+    def clean_register_time(self, register_time):
+        cleaned_register_time = register_time.replace('\t', '').strip()
+        now = datetime.now()
+        current_hour = now.strftime("%H")
+        current_minute = now.strftime("%M")
+        current_date = now.strftime('%Y-%m-%d')
+        yesterday_date = now - timedelta(days=1)
+        yesterday_date_str = yesterday_date.strftime('%Y-%m-%d') 
+        if int(cleaned_register_time[:2]) > int(current_hour):
+            cleaned_register_time = datetime.strptime((current_date + ' ' + cleaned_register_time), '%Y-%m-%d %H:%M')
+        elif int(cleaned_register_time[:2]) < int(current_hour):
+            # 어제 날짜 삽입
+            cleaned_register_time = datetime.strptime((yesterday_date_str + ' ' + cleaned_register_time), '%Y-%m-%d %H:%M')
+        elif int(cleaned_register_time[:2]) == int(current_hour) and int(cleaned_register_time[-2:]) < int(current_minute):
+            # 어제 날짜 삽입
+            cleaned_register_time = datetime.strptime((yesterday_date_str + ' ' + cleaned_register_time), '%Y-%m-%d %H:%M')
+        else:
+            # 오늘 날짜 삽입
+            cleaned_register_time = datetime.strptime((current_date + ' ' + cleaned_register_time), '%Y-%m-%d %H:%M')
+        return cleaned_register_time
+## 현재 시간이 15시인데 등록 시간이 17:xx이다? 이러면 어제 날짜 넣rl. 이거 이전이면(0시~14시) -> 오늘 날짜 넣고.    
 
 class SaveToDatabasePipeline:
     def process_item(self, item, spider):
@@ -59,5 +72,4 @@ class SaveToDatabasePipeline:
 
 # 날짜 로직
 # 중복 처리? 이건 걍 앞에서 url로 처리해보자
-## 현재 시간이 15시인데 등록 시간이 17:xx이다? 이러면 어제 날짜 넣는거지. 이거 이전이면(0시~14시) -> 오늘 날짜 넣고.
 ## 그리고 register_time의 글자가 몇 글자 이상이면 뭐 종료 이런식으로 페이지 넘어가서 스크래핑하게 만들자(\t때문에 len은 7이 됨. 8 이상이면 종료)
