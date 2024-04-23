@@ -37,16 +37,13 @@ class PreprocessingPipeline:
         if int(cleaned_register_time[:2]) > int(current_hour):
             cleaned_register_time = datetime.strptime((current_date + ' ' + cleaned_register_time), '%Y-%m-%d %H:%M')
         elif int(cleaned_register_time[:2]) < int(current_hour):
-            # 어제 날짜 삽입
             cleaned_register_time = datetime.strptime((yesterday_date_str + ' ' + cleaned_register_time), '%Y-%m-%d %H:%M')
         elif int(cleaned_register_time[:2]) == int(current_hour) and int(cleaned_register_time[-2:]) < int(current_minute):
-            # 어제 날짜 삽입
             cleaned_register_time = datetime.strptime((yesterday_date_str + ' ' + cleaned_register_time), '%Y-%m-%d %H:%M')
         else:
-            # 오늘 날짜 삽입
             cleaned_register_time = datetime.strptime((current_date + ' ' + cleaned_register_time), '%Y-%m-%d %H:%M')
         return cleaned_register_time
-## 현재 시간이 15시인데 등록 시간이 17:xx이다? 이러면 어제 날짜 넣rl. 이거 이전이면(0시~14시) -> 오늘 날짜 넣고.    
+## 현재 시간이 15시인데 등록 시간이 17:xx이다? 이러면 어제 날짜 넣rl. 이거 이전이면(0시~14시) -> 오늘 날짜.    
 
 class SaveToDatabasePipeline:
     def process_item(self, item, spider):
