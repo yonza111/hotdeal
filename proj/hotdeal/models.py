@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils import timezone
 # 핫딜 스크래핑 해온거 저장하는 모델
 class ScrappingModel(models.Model):
     # 제목, 가격, 카테고리, 쇼핑몰, 배송, 등록시간, url
@@ -8,7 +8,7 @@ class ScrappingModel(models.Model):
     category = models.CharField(max_length=20)
     shop = models.CharField(max_length=20)
     delivery_fee = models.CharField(max_length=20)
-    register_time = models.DateTimeField
+    register_time = models.DateTimeField(default=timezone.now)
     url = models.CharField(max_length=100)
 
     def __str__(self):
@@ -23,4 +23,4 @@ class ArticleModel(models.Model):
     pass
 
 
-# 추가 페이지 구현 할거임(24시간 내 핫딜 목록 보여주는 뷰)
+# 추가 페이지 구현 할거임(24시간 내 핫딜 목록 보여주는 뷰) 
