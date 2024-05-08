@@ -8,6 +8,7 @@
 from itemadapter import ItemAdapter
 from hotdeal.models import ScrappingModel
 from datetime import datetime, timedelta
+from asgiref.sync import sync_to_async
 
 
 class ScrapperHotdealPipeline:
@@ -46,6 +47,7 @@ class PreprocessingPipeline:
 ## 현재 시간이 15시인데 등록 시간이 17:xx이다? 이러면 어제 날짜 넣rl. 이거 이전이면(0시~14시) -> 오늘 날짜.    
 
 class SaveToDatabasePipeline:
+    @sync_to_async
     def process_item(self, item, spider):
         title = item.get('title')
         category = item.get('category')
@@ -54,15 +56,16 @@ class SaveToDatabasePipeline:
         url = item.get('url')
 
         # 데이터 저장
-        ScrappingModel.objects.create(
-            title=title,
-            category=category,
-            register_time=register_time,
-            shop = info[0],
-            price = info[1],
-            delivery_fee = info[2],
-            url=url
-        )
+        if not ScrappingModel.objects.filter(url=url).exists():
+            ScrappingModel.objects.create(
+                title=title,
+                category=category,
+                register_time=register_time,
+                shop = info[0],
+                price = info[1],
+                delivery_fee = info[2],
+                url=url
+            )
 
         return item
  
