@@ -32,8 +32,6 @@ class HotdealSpider(scrapy.Spider):
         self.page_num += 1
         next_page_url = f"https://www.fmkorea.com/index.php?mid=hotdeal&page={self.page_num}"  # 다음 페이지의 URL 생성
         yield scrapy.Request(next_page_url, callback=self.parse)
-            # print(len(item['register_time']))
-        #     items.append(item)
-        # yield items
+
 
         
