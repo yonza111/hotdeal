@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'hotdeal.apps.HotdealConfig',
+    'django_apscheduler', # 스케쥴러
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
