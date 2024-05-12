@@ -33,12 +33,15 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'hotdeal.apps.HotdealConfig',
     'django_apscheduler', # 스케쥴러
+    'rest_framework',
+    'drf_spectacular',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
