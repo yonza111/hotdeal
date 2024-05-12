@@ -13,7 +13,7 @@ class ScrappingModel(models.Model):
     active = models.BooleanField(default=True)
 
     def __str__(self):
-        return f"{self.title}_{self.price}_{self.category}{self.register_time}"
+        return self.title
     # admin view만 
 
 
