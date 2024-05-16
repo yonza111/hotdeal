@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ category }} LIST</title>
+</head>
+<body>
+    <h3>{{ category }}</h3>
+    <div><a href="{% url 'hotdeal:list' %}" style="margin-right: 10px;">전체 리스트로 돌아가기</a></div>
+    <ul>
+        {% for post in page_obj %}
+        <li> <a href="{% url 'hotdeal:detail' pk=post.pk %}" target="_blank">{{ post.title }}</a> {{ post.price }}</li>
+        {% endfor %}
+    </ul>
+
+
+    {% comment %} <!-- pagination -->
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div> {% endcomment %}
+    
+</body>
+</html>

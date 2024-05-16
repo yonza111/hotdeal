@@ -1,3 +1,4 @@
+{% load socialaccount %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,5 +8,8 @@
 </head>
 <body>
     main view
+    <p><a href= "{% url 'hotdeal:list' %}" target="_blank">HOTDEAL LIST</a></p>
+    
+    <a href="{% provider_login_url 'discord' %}">Discord 로그인</a>
 </body>
 </html>

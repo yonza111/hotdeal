@@ -1,11 +1,13 @@
 from django.urls import include, path
-from .views import ScrappingModelListView, board, detail
+from .views import ScrappingListView, main, ScrappingDetailView, CategoryListView, ScrappingSearchListView
 
 app_name = "hotdeal"
 
 
 urlpatterns = [
-    path('api/scrapping-list/', ScrappingModelListView.as_view(), name='scrapping-list'),
-    path('board/', board, name='board'),
-    path('board/<int:pk>/', detail, name='detail'),
+    path('', main, name='main'),
+    path('list/', ScrappingListView.as_view(), name='list'),
+    path('list/<int:pk>/', ScrappingDetailView.as_view(), name='detail'),
+    path('category/<path:category>/', CategoryListView.as_view(), name='category_list'),
+    path('search/', ScrappingSearchListView.as_view(), name='search'),
      ]

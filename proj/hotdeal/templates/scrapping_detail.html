@@ -6,13 +6,13 @@
     <title>HOTDEAL DETAIL</title>
 </head>
 <body>
-    {{ post.title }}
-    {{ post.price }}
-    {{ post.register_time }}
-    {{ post.shop }}
-    {{ post.category }}
-    {{ post.delivery_fee }}
-    {{ post.url }}
-    {{ post.active }}
+    <p>{{ post.title }}</p>
+    <p>{{ post.price }}</p>
+    <p>{{ post.register_time }}</p>
+    <p>{{ post.shop }}</p>
+    <p>{{ post.category }}</p>
+    <p>{{ post.delivery_fee }}</p>
+    <p><a href = "{{ post.url }}" target="_blank">{{ post.url }}</a></p>
+    <p>{{ post.active }}</p>
 </body>
 </html>

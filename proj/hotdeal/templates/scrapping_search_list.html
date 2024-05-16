@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOTDEAL LIST</title>
+</head>
+<body>
+    <form action="{% url 'hotdeal:search' %}" method="GET">
+        <input type="text" name="q" placeholder="Search...">
+        <button type="submit">Search</button>
+    </form>
+
+    <p>"{{ search_query }}" 검색 결과</p>
+
+    <ul>
+        {% for post in page_obj %}
+            <li><a href="{% url 'hotdeal:detail' pk=post.pk %}" target="_blank">{{ post.title }} - {{ post.price }}</li>
+        {% empty %}
+            <li>No results found.</li>
+        {% endfor %}
+    </ul>
+    <div>
+        <a href="{% url 'hotdeal:list' %}" style="margin-right: 10px;">전체 리스트로 돌아가기</a>
+    </div>
+
+
+
+
+    
+</body>
+</html>

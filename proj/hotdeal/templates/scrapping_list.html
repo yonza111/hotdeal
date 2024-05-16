@@ -6,11 +6,37 @@
     <title>HOTDEAL LIST</title>
 </head>
 <body>
+    <div>
+        <a href="{% url 'hotdeal:list' %}" style="margin-right: 10px;">전체</a>
+        <a href="{% url 'hotdeal:category_list' category='먹거리' %}" style="margin-right: 10px;">먹거리</a>
+        <a href="{% url 'hotdeal:category_list' category='생활용품' %}" style="margin-right: 10px;">생활용품</a>
+        <a href="{% url 'hotdeal:category_list' category='PC제품' %}" style="margin-right: 10px;">PC제품</a>
+        <a href="{% url 'hotdeal:category_list' category='의류' %}" style="margin-right: 10px;">의류</a>
+        <a href="{% url 'hotdeal:category_list' category='SW/게임' %}" style="margin-right: 10px;">SW/게임</a>
+        <a href="{% url 'hotdeal:category_list' category='가전제품' %}" style="margin-right: 10px;">가전제품</a>
+        <a href="{% url 'hotdeal:category_list' category='모바일/상품권' %}" style="margin-right: 10px;">모바일/상품권</a>
+        <a href="{% url 'hotdeal:category_list' category='화장품' %}" style="margin-right: 10px;">화장품</a>
+        <a href="{% url 'hotdeal:category_list' category='패키지/이용권' %}" style="margin-right: 10px;">패키지/이용권</a>
+        <a href="{% url 'hotdeal:category_list' category='해외핫딜' %}" style="margin-right: 10px;">해외핫딜</a>
+        <a href="{% url 'hotdeal:category_list' category='세일정보' %}" style="margin-right: 10px;">세일정보</a>
+        <a href="{% url 'hotdeal:category_list' category='기타' %}" style="margin-right: 10px;">기타</a>
+        <!-- 필요한 만큼 카테고리를 나열하고 버튼을 만듭니다 -->
+    </div>
+
+    <!-- 검색 버튼 -->
+    <p><form action="{% url 'hotdeal:search' %}" method="GET">
+        <input type="text" name="q" placeholder="Search...">
+        <button type="submit">Search</button>
+    </form></p>
+
     <ul>
         {% for post in page_obj %}
-        <li> <a href="{{ post.url }}" target="_blank">{{ post.title }}</a> {{ post.price }}</li>
+        <li> <a href="{% url 'hotdeal:detail' pk=post.pk %}" target="_blank">{{ post.title }}</a> {{ post.price }}</li>
         {% endfor %}
     </ul>
+
+    
+
 
     <!-- pagination -->
     <div class="pagination">
