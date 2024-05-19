@@ -1,5 +1,9 @@
 from django.urls import include, path
-from .views import ScrappingListView, main, ScrappingDetailView, CategoryListView, ScrappingSearchListView
+from .views import (ScrappingListView, 
+                    main, 
+                    ScrappingDetailView, 
+                    CategoryListView, 
+                    ScrappingSearchListView,) 
 
 app_name = "hotdeal"
 
@@ -10,4 +14,4 @@ urlpatterns = [
     path('list/<int:pk>/', ScrappingDetailView.as_view(), name='detail'),
     path('category/<path:category>/', CategoryListView.as_view(), name='category_list'),
     path('search/', ScrappingSearchListView.as_view(), name='search'),
-     ]
+    ]
