@@ -3,19 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Filtered Scrapping Data</title>
+    <title>키워드 검색 결과</title>
 </head>
 <body>
-    <h1>Filtered Scrapping Data Based on Your Keywords</h1>
+    <a href="{% url 'keyword_manager:keyword_list' %}">Back to Keyword List</a>
+    <h1>키워드 검색 결과</h1>
     {% if scrapping_data %}
         <ul>
             {% for data in scrapping_data %}
                 <li>
                     <a href="{{ data.url }}" target="_blank">{{ data.title }}</a><br>
-                    Price: {{ data.price }}<br>
-                    Category: {{ data.category }}<br>
-                    Shop: {{ data.shop }}<br>
-                    Delivery Fee: {{ data.delivery_fee }}<br>
+                    Price: {{ data.price }} / Category: {{ data.category }}<br>
+                    Shop: {{ data.shop }}  / Delivery Fee: {{ data.delivery_fee }}<br>
                     Registered Time: {{ data.register_time }}
                 </li>
             {% endfor %}
@@ -23,6 +22,6 @@
     {% else %}
         <p>No matching data found.</p>
     {% endif %}
-    <a href="{% url 'keyword_list' %}">Back to Keyword List</a>
+    
 </body>
 </html>

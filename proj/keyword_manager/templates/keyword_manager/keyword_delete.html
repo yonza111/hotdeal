@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>키워드 삭제</title>
+</head>
+<body>
+    <h1>키워드 삭제</h1>
+    <p>"{{ object }}" 삭제하시겠습니까??</p>
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="삭제">
+        <a href="{% url 'keyword_manager:keyword_list' %}">취소</a>
+    </form>
+</body>
+</html>

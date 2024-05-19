@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KEYWORD LIST</title>
+</head>
+<body>
+    <p><a href= "{% url 'hotdeal:main' %}" target="_self">MAIN으로 돌아가기</a></p>
+    <h1>키워드 리스트</h1>
+    {% if keywords %}
+        <ul>
+            
+            {% for data in keywords %}
+                <li>
+                    {{data.text}} &nbsp;&nbsp;&nbsp;<a href="{% url 'keyword_manager:keyword_delete' pk=data.pk%}">삭제</a>    
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>등록된 키워드가 없습니다.</p>
+    {% endif %}
+    <a href= "{% url 'keyword_manager:add_keyword' %}" target="_self">키워드 추가</a><br>
+    <a href= "{% url 'keyword_manager:filtered_scrapping_list' %}" target="_self">키워드 검색 결과</a>
+</body>
+</html>
