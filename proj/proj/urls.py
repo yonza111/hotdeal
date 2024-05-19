@@ -13,6 +13,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("hotdeal/", include('hotdeal.urls')),
     path('accounts/', include('allauth.urls')),
+    path("keyword_manager/", include('keyword_manager.urls')),
    
     
 ]
