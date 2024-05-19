@@ -6,6 +6,7 @@
     <title>HOTDEAL LIST</title>
 </head>
 <body>
+    <p><a href= "{% url 'hotdeal:main' %}" target="_self">MAIN으로 돌아가기</a></p>
     <div>
         <a href="{% url 'hotdeal:list' %}" style="margin-right: 10px;">전체</a>
         <a href="{% url 'hotdeal:category_list' category='먹거리' %}" style="margin-right: 10px;">먹거리</a>
