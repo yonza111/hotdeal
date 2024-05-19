@@ -7,12 +7,12 @@ from django.shortcuts import render, get_object_or_404
 
 
 def main(request):
-    return render(request, 'main_view.html')
+    return render(request, 'hotdeal/main_view.html')
 
 
 class ScrappingListView(ListView):
     model = ScrappingModel
-    template_name = 'scrapping_list.html'
+    template_name = 'hotdeal/scrapping_list.html'
     context_object_name = 'page_obj'
     paginate_by = 20
     ordering = '-register_time'
@@ -28,7 +28,7 @@ class ScrappingListView(ListView):
 
 class CategoryListView(ListView):
     model = ScrappingModel
-    template_name = 'category_list.html'
+    template_name = 'hotdeal/category_list.html'
     context_object_name = 'page_obj'
     ordering = '-register_time'
 
@@ -48,7 +48,7 @@ class CategoryListView(ListView):
 
 class ScrappingSearchListView(ListView):
     model = ScrappingModel
-    template_name = 'scrapping_search_list.html'
+    template_name = 'hotdeal/scrapping_search_list.html'
     context_object_name = 'page_obj'
 
     def get_queryset(self):
@@ -66,6 +66,6 @@ class ScrappingSearchListView(ListView):
 
 class ScrappingDetailView(DetailView):
     model = ScrappingModel
-    template_name = 'scrapping_detail.html'
+    template_name = 'hotdeal/scrapping_detail.html'
     context_object_name = 'post'
 
