@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filtered Scrapping Data</title>
+</head>
+<body>
+    <h1>Filtered Scrapping Data Based on Your Keywords</h1>
+    {% if scrapping_data %}
+        <ul>
+            {% for data in scrapping_data %}
+                <li>
+                    <a href="{{ data.url }}" target="_blank">{{ data.title }}</a><br>
+                    Price: {{ data.price }}<br>
+                    Category: {{ data.category }}<br>
+                    Shop: {{ data.shop }}<br>
+                    Delivery Fee: {{ data.delivery_fee }}<br>
+                    Registered Time: {{ data.register_time }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No matching data found.</p>
+    {% endif %}
+    <a href="{% url 'keyword_list' %}">Back to Keyword List</a>
+</body>
+</html>
