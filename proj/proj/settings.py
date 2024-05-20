@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'hotdeal.apps.HotdealConfig',
     'keyword_manager.apps.KeywordManagerConfig',
+    'discord.apps.DiscordConfig',
     'django_apscheduler', # 스케쥴러
     'rest_framework',
     'drf_spectacular',
