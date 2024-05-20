@@ -13,7 +13,7 @@
             
             {% for data in keywords %}
                 <li>
-                    {{data.text}} &nbsp;&nbsp;&nbsp;<a href="{% url 'keyword_manager:keyword_delete' pk=data.pk%}">삭제</a>    
+                    <a href="{% url 'keyword_manager:filtered_scrapping_list' keyword=data.text %}">{{data.text}}</a> &nbsp;&nbsp;&nbsp;<a href="{% url 'keyword_manager:keyword_delete' pk=data.pk%}">삭제</a>    
                 </li>
             {% endfor %}
         </ul>
