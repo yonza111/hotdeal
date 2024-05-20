@@ -58,7 +58,7 @@
     {% load socialaccount %}
     {% if user.is_authenticated %}
         <!-- 사용자가 로그인되어 있을 때 -->
-        <a href="{% url 'account_logout' %}?next={{ request.path }}">로그아웃</a>
+        <a href="{% url 'account_logout' %}">로그아웃</a>
     {% else %}
         <!-- 사용자가 로그아웃되어 있을 때 -->
         <a href="{% provider_login_url 'discord' %}?next={{ request.path }}">Discord 로그인</a>
