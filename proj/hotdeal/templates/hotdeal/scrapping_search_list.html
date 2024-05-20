@@ -23,7 +23,16 @@
     <div>
         <a href="{% url 'hotdeal:list' %}" style="margin-right: 10px;">전체 리스트로 돌아가기</a>
     </div>
-
+    <div>
+        {% load socialaccount %}
+        {% if user.is_authenticated %}
+            <!-- 사용자가 로그인되어 있을 때 -->
+            <a href="{% url 'account_logout' %}">로그아웃</a>
+        {% else %}
+            <!-- 사용자가 로그아웃되어 있을 때 -->
+            <a href="{% provider_login_url 'discord' %}?next={{ request.path }}">Discord 로그인</a>
+        {% endif %}
+    </div>
 
 
 

@@ -21,7 +21,6 @@
         <a href="{% url 'hotdeal:category_list' category='해외핫딜' %}" style="margin-right: 10px;">해외핫딜</a>
         <a href="{% url 'hotdeal:category_list' category='세일정보' %}" style="margin-right: 10px;">세일정보</a>
         <a href="{% url 'hotdeal:category_list' category='기타' %}" style="margin-right: 10px;">기타</a>
-        <!-- 필요한 만큼 카테고리를 나열하고 버튼을 만듭니다 -->
     </div>
 
     <!-- 검색 버튼 -->
@@ -37,8 +36,6 @@
     </ul>
 
     
-
-
     <!-- pagination -->
     <div class="pagination">
         <span class="step-links">
@@ -57,6 +54,15 @@
             {% endif %}
         </span>
     </div>
-    
+    <div>
+    {% load socialaccount %}
+    {% if user.is_authenticated %}
+        <!-- 사용자가 로그인되어 있을 때 -->
+        <a href="{% url 'account_logout' %}?next={{ request.path }}">로그아웃</a>
+    {% else %}
+        <!-- 사용자가 로그아웃되어 있을 때 -->
+        <a href="{% provider_login_url 'discord' %}?next={{ request.path }}">Discord 로그인</a>
+    {% endif %}
+    </div>
 </body>
 </html>
