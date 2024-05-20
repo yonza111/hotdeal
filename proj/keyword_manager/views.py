@@ -7,9 +7,9 @@ from django.urls import reverse_lazy
 from .forms import KeywordForm
 
 
-class FilteredScrappingListView(LoginRequiredMixin, ListView):
+class FilteredAllScrappingListView(LoginRequiredMixin, ListView):
     model = ScrappingModel
-    template_name = 'keyword_manager/filtered_scrapping_list.html'
+    template_name = 'keyword_manager/filtered_all_scrapping_list.html'
     context_object_name = 'scrapping_data'
 
     def get_queryset(self):
@@ -24,6 +24,22 @@ class FilteredScrappingListView(LoginRequiredMixin, ListView):
             for keyword in keyword_texts:
                 query |= Q(title__icontains=keyword)
             return ScrappingModel.objects.filter(query, active=True)
+        
+
+class FilteredAScrappingListView(LoginRequiredMixin, ListView):
+    model = ScrappingModel
+    template_name = 'keyword_manager/filtered_a_scrapping_list.html'
+    context_object_name = 'scrapping_data'
+
+    def get_queryset(self):
+        keyword_text = self.kwargs.get('keyword')
+        return ScrappingModel.objects.filter(title__icontains=keyword_text, active=True)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['keyword'] = self.kwargs.get('keyword') 
+        return context
+     # list template에서 keyword = data.text로 가져옴    
         
 class KeywordCreateView(LoginRequiredMixin, CreateView):
     model = Keyword
