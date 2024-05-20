@@ -31,6 +31,11 @@ class KeywordCreateView(LoginRequiredMixin, CreateView):
     form_class = KeywordForm
     success_url = reverse_lazy('keyword_manager:keyword_list')
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
@@ -54,3 +59,5 @@ class KeywordListView(LoginRequiredMixin, ListView):
 # 내가 등록한키워드들 / 키워드 등록 / 키워드 검색 결과창 - O
 # 키워드 결과창에 내 키워드 리스트 쭈루룩 뜨게 + 등록 url과 삭제 기능 만들기 O
 # 등록창에 제약 걸수 있는지 + 중복된 키워드 안되게 + 특수문자 안되게 이런거
+
+# 이제 이걸 디스코드로 쏴 주자
