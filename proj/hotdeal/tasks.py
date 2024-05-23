@@ -42,9 +42,9 @@ def run_scrapy_crawler():
 # 스케줄링 작업 실행
 def start():
     scheduler = BackgroundScheduler()
-    scheduler.add_job(run_scrapy_crawler, 'interval', minutes=1)
+    # scheduler.add_job(run_scrapy_crawler, 'interval', minutes=1)
     # scheduler.add_job(deactivate_olddata, 'interval', minutes=1)
-    # scheduler.add_job(run_scrapy_crawler, 'interval', hours=1)
+    scheduler.add_job(run_scrapy_crawler, 'interval', hours=1)
     # scheduler.add_job(deactivate_olddata, 'interval', hours=1)
     try:
       logger.info("Starting scheduler...")

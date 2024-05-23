@@ -9,9 +9,9 @@
 </head>
 <body>
     main view
-    <p><a href= "{% url 'hotdeal:list' %}" target="_self">HOTDEAL LIST</a></p>
+    <p><a href= "{% url 'hotdeal:list' %}" target="_self">핫딜 보러가기</a></p>
     
-    <p><a href= "{% url 'keyword_manager:keyword_list' %}" target="_self" >KEYWORD</a></p>
+    <p><a href= "{% url 'keyword_manager:keyword_list' %}" target="_self" >키워드 관리&알람 켜기</a></p>
 
     {% if user.is_authenticated %}
         <!-- 사용자가 로그인되어 있을 때 -->
