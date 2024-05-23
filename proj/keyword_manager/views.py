@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView, CreateView, DeleteView
-from .models import Keyword
+from django.views.generic import ListView, CreateView, DeleteView, UpdateView
+from .models import Keyword, DiscordMessage
 from hotdeal.models import ScrappingModel  # Assuming 'hotdeal' is the app name for ScrappingModel
 from django.db.models import Q
 from django.urls import reverse_lazy
@@ -71,9 +71,19 @@ class KeywordListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         user = self.request.user
         return Keyword.objects.filter(user=user)
-    
-# 내가 등록한키워드들 / 키워드 등록 / 키워드 검색 결과창 - O
-# 키워드 결과창에 내 키워드 리스트 쭈루룩 뜨게 + 등록 url과 삭제 기능 만들기 O
-# 등록창에 제약 걸수 있는지 + 중복된 키워드 안되게 + 특수문자 안되게 이런거
 
-# 이제 이걸 디스코드로 쏴 주자
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        discord_message = DiscordMessage.objects.filter(user=user).first()
+        context['discord_message_active'] = discord_message.active if discord_message else False
+        context['discord_message_pk'] = discord_message.pk if discord_message else None
+        return context
+
+
+class DiscordMessageActiveUpdateView(LoginRequiredMixin, UpdateView):
+    model = DiscordMessage
+    context_object_name = 'object'
+    fields = ['active']
+    template_name='keyword_manager/discord_message_active.html'
+    success_url = reverse_lazy('keyword_manager:keyword_list')

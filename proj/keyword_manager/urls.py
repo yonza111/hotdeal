@@ -4,7 +4,8 @@ from .views import (FilteredAllScrappingListView,
                     FilteredAScrappingListView, 
                     KeywordCreateView, 
                     KeywordListView,
-                    KeywordDeleteView)
+                    KeywordDeleteView,
+                    DiscordMessageActiveUpdateView)
 
 app_name = "keyword_manager"
 
@@ -13,5 +14,7 @@ urlpatterns = [
     path('filtered/<str:keyword>/', FilteredAScrappingListView.as_view(), name='filtered_scrapping_list'),
     path('add/', KeywordCreateView.as_view(), name='add_keyword'),
     path('list/', KeywordListView.as_view(), name='keyword_list'),
-    path('<int:pk>/delete/', KeywordDeleteView.as_view(), name='keyword_delete'),
+    path('delete/<int:pk>/', KeywordDeleteView.as_view(), name='keyword_delete'),
+    path('active/<int:pk>/', DiscordMessageActiveUpdateView.as_view(), name='active_update'),
+    
 ]

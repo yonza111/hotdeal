@@ -8,9 +8,21 @@
 <body>
     <p><a href= "{% url 'hotdeal:main' %}" target="_self">MAIN으로 돌아가기</a></p>
     <h1>키워드 리스트</h1>
+    
+    {% if discord_message_pk %}
+        <p>
+            {% if discord_message_active %}
+                핫딜 DM 받기: 활성화
+            {% else %}
+                핫딜 DM 받기: 비활성화
+            {% endif %}
+            &nbsp;
+            <a href="{% url 'keyword_manager:active_update' pk=discord_message_pk %}" target="_self">편집</a>
+        </p>
+    {% endif %}
+
     {% if keywords %}
         <ul>
-            
             {% for data in keywords %}
                 <li>
                     <a href="{% url 'keyword_manager:filtered_scrapping_list' keyword=data.text %}">{{data.text}}</a> &nbsp;&nbsp;&nbsp;<a href="{% url 'keyword_manager:keyword_delete' pk=data.pk%}">삭제</a>    
