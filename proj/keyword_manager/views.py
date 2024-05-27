@@ -6,7 +6,6 @@ from django.db.models import Q
 from django.urls import reverse_lazy
 from .forms import KeywordForm
 
-
 class FilteredAllScrappingListView(LoginRequiredMixin, ListView):
     model = ScrappingModel
     template_name = 'keyword_manager/filtered_all_scrapping_list.html'
