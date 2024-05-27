@@ -34,5 +34,15 @@
     {% endif %}
     <a href= "{% url 'keyword_manager:add_keyword' %}" target="_self">키워드 추가</a><br>
     <a href= "{% url 'keyword_manager:filtered_scrapping_list' %}" target="_self">키워드 검색 결과</a>
+    
+    </br>
+    {% if user.is_authenticated %}
+        <!-- 사용자가 로그인되어 있을 때 -->
+        <a href="{% url 'account_logout' %}">로그아웃</a>
+    {% else %}
+        <!-- 사용자가 로그아웃되어 있을 때 -->
+        {% load socialaccount %}
+        <a href="{% provider_login_url 'discord' %}">Discord 로그인</a>
+    {% endif %}
 </body>
 </html>
