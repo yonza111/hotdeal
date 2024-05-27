@@ -1,8 +1,10 @@
+#tasks.py
 import logging
 from apscheduler.schedulers.background import BackgroundScheduler 
 from datetime import timedelta
 from django.utils import timezone
 from .models import ScrappingModel
+
 
 logger = logging.getLogger(__name__)
 
@@ -23,6 +25,7 @@ def deactivate_olddata():
 
 import subprocess
 
+
 def run_scrapy_crawler():
     # Scrapy 프로젝트 디렉토리로 이동
     scrapy_project_path = 'scrapper_hotdeal'  # Scrapy 프로젝트의 실제 경로로 수정
@@ -39,18 +42,24 @@ def run_scrapy_crawler():
         print(f"Error running Scrapy crawler: {e}")
 
 
+
+
 # 스케줄링 작업 실행
 def start():
     scheduler = BackgroundScheduler()
-    # scheduler.add_job(run_scrapy_crawler, 'interval', minutes=1)
-    # scheduler.add_job(deactivate_olddata, 'interval', minutes=1)
-    scheduler.add_job(run_scrapy_crawler, 'interval', hours=1)
-    # scheduler.add_job(deactivate_olddata, 'interval', hours=1)
+    # scheduler.add_job(run_discordbot)
+    scheduler.add_job(run_scrapy_crawler, 'interval', minutes=60)
+    # scheduler.add_job(run_scrapy_crawler, 'interval', hours=1)
+    
+    
+
     try:
+      # logger.info("Starting discord bot...")
       logger.info("Starting scheduler...")
       scheduler.start() # 없으면 동작하지 않습니다.
     except KeyboardInterrupt:
       logger.info("Stopping scheduler...")
       scheduler.shutdown()
       logger.info("Scheduler shut down successfully!")
+    
 
