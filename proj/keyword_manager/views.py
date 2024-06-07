@@ -1,15 +1,14 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView, CreateView, DeleteView, UpdateView
-from .models import Keyword, DiscordMessage
-from hotdeal.models import ScrappingModel  # Assuming 'hotdeal' is the app name for ScrappingModel
-from django.db.models import Q
+from rest_framework import generics, permissions
 from django.urls import reverse_lazy
-from .forms import KeywordForm
+from .models import Keyword, DiscordMessage
+from hotdeal.models import ScrappingModel
+from django.db.models import Q
+from .serializers import KeywordSerializer, ScrappingModelSerializer, DiscordMessageSerializer
 
-class FilteredAllScrappingListView(LoginRequiredMixin, ListView):
-    model = ScrappingModel
-    template_name = 'keyword_manager/filtered_all_scrapping_list.html'
-    context_object_name = 'scrapping_data'
+
+class FilteredAllScrappingListView(generics.ListAPIView):
+    serializer_class = ScrappingModelSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         user = self.request.user
@@ -23,66 +22,63 @@ class FilteredAllScrappingListView(LoginRequiredMixin, ListView):
             for keyword in keyword_texts:
                 query |= Q(title__icontains=keyword)
             return ScrappingModel.objects.filter(query, active=True)
-        
 
-class FilteredAScrappingListView(LoginRequiredMixin, ListView):
-    model = ScrappingModel
-    template_name = 'keyword_manager/filtered_a_scrapping_list.html'
-    context_object_name = 'scrapping_data'
+
+class FilteredAScrappingListView(generics.ListAPIView):
+    serializer_class = ScrappingModelSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         keyword_text = self.kwargs.get('keyword')
         return ScrappingModel.objects.filter(title__icontains=keyword_text, active=True)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['keyword'] = self.kwargs.get('keyword') 
-        return context
-     # list template에서 keyword = data.text로 가져옴    
-        
-class KeywordCreateView(LoginRequiredMixin, CreateView):
-    model = Keyword
-    template_name = 'keyword_manager/keyword_form.html'
-    form_class = KeywordForm
-    success_url = reverse_lazy('keyword_manager:keyword_list')
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs['user'] = self.request.user
-        return kwargs
-
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
-    
-
-class KeywordDeleteView(LoginRequiredMixin, DeleteView):
-    model = Keyword
-    template_name = 'keyword_manager/keyword_delete.html'
-    success_url = reverse_lazy('keyword_manager:keyword_list')
+    def list(self, request, *args, **kwargs):
+        response = super().list(request, *args, **kwargs)
+        response.data.append({'keyword': self.kwargs.get('keyword')})
+        return response
 
 
-class KeywordListView(LoginRequiredMixin, ListView):
-    model = Keyword
-    template_name = 'keyword_manager/keyword_list.html'
-    context_object_name = 'keywords'
+class KeywordCreateView(generics.CreateAPIView):
+    serializer_class = KeywordSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+class KeywordDeleteView(generics.DestroyAPIView):
+    serializer_class = KeywordSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         user = self.request.user
         return Keyword.objects.filter(user=user)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+
+class KeywordListView(generics.ListAPIView):
+    serializer_class = KeywordSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Keyword.objects.filter(user=user)
+
+    def list(self, request, *args, **kwargs):
+        response = super().list(request, *args, **kwargs)
         user = self.request.user
         discord_message = DiscordMessage.objects.filter(user=user).first()
-        context['discord_message_active'] = discord_message.active if discord_message else False
-        context['discord_message_pk'] = discord_message.pk if discord_message else None
-        return context
+        response.data.append({
+            'discord_message_active': discord_message.active if discord_message else False,
+            'discord_message_pk': discord_message.pk if discord_message else None
+        })
+        return response
 
 
-class DiscordMessageActiveUpdateView(LoginRequiredMixin, UpdateView):
-    model = DiscordMessage
-    context_object_name = 'object'
-    fields = ['active']
-    template_name='keyword_manager/discord_message_active.html'
-    success_url = reverse_lazy('keyword_manager:keyword_list')
+class DiscordMessageActiveUpdateView(generics.UpdateAPIView):
+    serializer_class = DiscordMessageSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = DiscordMessage.objects.all()
+    lookup_field = 'pk'
+
+    def get_success_url(self):
+        return reverse_lazy('keyword_manager:keyword_list')
