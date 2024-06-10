@@ -2,15 +2,18 @@ from rest_framework import generics
 from django.shortcuts import render
 from .models import ScrappingModel
 from .serializers import ScrappingModelSerializer
+from rest_framework.pagination import PageNumberPagination
 
 
-def main(request):
-    return render(request, 'hotdeal/main_view.html')
+def index(request):
+    return render(request, 'index.html')
 
 
 class ScrappingListView(generics.ListAPIView):
     queryset = ScrappingModel.objects.all().order_by('-register_time')
     serializer_class = ScrappingModelSerializer
+    # pagination_class = PageNumberPagination  # 페이지네이션 클래스 지정
+    # page_size = 20  
 
 
 class CategoryListView(generics.ListAPIView):
