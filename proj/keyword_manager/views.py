@@ -1,9 +1,13 @@
+# keyword_manager/views.py
+
 from rest_framework import generics, permissions
 from django.urls import reverse_lazy
 from .models import Keyword, DiscordMessage
 from hotdeal.models import ScrappingModel
 from django.db.models import Q
 from .serializers import KeywordSerializer, ScrappingModelSerializer, DiscordMessageSerializer
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
 
 class FilteredAllScrappingListView(generics.ListAPIView):

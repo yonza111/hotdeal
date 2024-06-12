@@ -1,3 +1,5 @@
+# hotdeal/models.py
+
 from django.db import models
 from django.utils import timezone
 # 핫딜 스크래핑 해온거 저장하는 모델

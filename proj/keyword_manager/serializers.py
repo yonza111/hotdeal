@@ -1,6 +1,8 @@
+# keyword_manager/serializers.py
 from rest_framework import serializers
 from .models import Keyword, DiscordMessage
 from hotdeal.models import ScrappingModel
+
 
 class KeywordSerializer(serializers.ModelSerializer):
     class Meta:

@@ -1,3 +1,4 @@
+# keyword_manager/models.py
 from django.db import models
 from django.contrib.auth.models import User
 from allauth.socialaccount.models import SocialAccount

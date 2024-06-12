@@ -1,3 +1,4 @@
+# hotdeal/urls.py
 from django.urls import include, path
 from .views import (ScrappingListView, 
                     index, 

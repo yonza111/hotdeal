@@ -54,21 +54,34 @@ INSTALLED_APPS = [
 SCHEDULER_DEFAULT = True
 
 AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
 SITE_ID = 1
 
+
+
 SOCIALACCOUNT_PROVIDERS = {
     'discord': {
-        'SCOPE': ['identify', 'email'],
-        'AUTH_PARAMS': {'access_type': 'online'},
-        'REDIRECT_URI': "http://127.0.0.1:8000/accounts/discord/login/callback/"
+        'APP': {
+            'client_id': '1219148050354802749',
+            'secret': 'lNt2oFQ9YqJfbMEAcLPe89QNuoKXr3aU',
+        }
     }
 }
 
-LOGIN_REDIRECT_URL = '/hotdeal/'
-LOGOUT_REDIRECT_URL = '/hotdeal/'
+
+# SOCIALACCOUNT_PROVIDERS = {
+#     'discord': {
+#         'SCOPE': ['identify', 'email'],
+#         'AUTH_PARAMS': {'access_type': 'online'},
+#         'REDIRECT_URI': "http://127.0.0.1:8000/accounts/discord/login/callback/"
+#     }
+# }
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 
 MIDDLEWARE = [

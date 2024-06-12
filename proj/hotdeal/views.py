@@ -1,3 +1,4 @@
+# hotdeal/views.py
 from rest_framework import generics
 from django.shortcuts import render
 from .models import ScrappingModel
@@ -10,7 +11,8 @@ def index(request):
 
 
 class ScrappingListView(generics.ListAPIView):
-    queryset = ScrappingModel.objects.all().order_by('-register_time')
+    queryset = ScrappingModel.objects.filter(active=True).order_by('-register_time')
+    # queryset = ScrappingModel.objects.all().order_by('-register_time') 서버 측에서 active=True인것만 반환하게 설정
     serializer_class = ScrappingModelSerializer
     # pagination_class = PageNumberPagination  # 페이지네이션 클래스 지정
     # page_size = 20  
