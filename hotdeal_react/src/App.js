@@ -12,10 +12,6 @@ import KeywordDelete from './components/keyword_manager/KeywordDelete';
 import DiscordMessageActiveUpdate from './components/keyword_manager/DiscordMessageActiveUpdate';
 
 function App() {
-  const handleDiscordLogin = () => {
-    window.location.href = 'https://discord.com/api/oauth2/authorize?client_id=1219148050354802749&redirect_uri=http://127.0.0.1:8000/accounts/discord/login/callback/&response_type=code&scope=identify';
-  };
-
   return (
     <Router>
       <div>
