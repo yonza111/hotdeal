@@ -1,3 +1,4 @@
+// components/hotdeal/ScrappingDetail.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom'; // useParams import 추가
