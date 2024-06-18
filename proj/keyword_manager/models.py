@@ -21,13 +21,14 @@ class Keyword(models.Model):
     def __str__(self):
         return self.text
     
+    
 
 
 class DiscordMessage(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     keyword = models.ForeignKey(Keyword, on_delete=models.CASCADE)
-    discord_uid = models.CharField(max_length=50, null=True)
-    active = models.BooleanField(default=True)
+    discord_uid = models.CharField(max_length=50, null=True, blank=True)
+    active = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.user.username}'s Discord Message"
@@ -49,7 +50,13 @@ def create_discord_message(sender, instance, created, **kwargs):
     if created:
         user = instance.user
         discord_uid = DiscordMessage.create_discord_uid(user)
-        DiscordMessage.objects.create(user=user, keyword=instance, discord_uid=discord_uid)
+        discord_message = DiscordMessage.objects.create(user=user, keyword=instance, discord_uid=discord_uid)
+        
+        # 현재 사용자의 DiscordMessage 객체 중 첫 번째 객체의 active 상태를 가져옴
+        user_discord_message = DiscordMessage.objects.filter(user=user).first()
+        if user_discord_message:
+            discord_message.active = user_discord_message.active
+            discord_message.save()
 
 @receiver(post_delete, sender=Keyword)
 def delete_discord_message(sender, instance, **kwargs):

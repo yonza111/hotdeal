@@ -7,7 +7,7 @@ from hotdeal.models import ScrappingModel
 class KeywordSerializer(serializers.ModelSerializer):
     class Meta:
         model = Keyword
-        fields = '__all__'
+        fields = ['id','text']
 
 class ScrappingModelSerializer(serializers.ModelSerializer):
     class Meta:

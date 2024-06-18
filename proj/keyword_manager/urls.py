@@ -17,5 +17,4 @@ urlpatterns = [
     path('api/list/', KeywordListView.as_view(), name='keyword_list'),
     path('api/delete/<int:pk>/', KeywordDeleteView.as_view(), name='keyword_delete'),
     path('api/active/<int:pk>/', DiscordMessageActiveUpdateView.as_view(), name='active_update'),
-    # path('api/user_status/', user_status, name='user_status'),
 ]
