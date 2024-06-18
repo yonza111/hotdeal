@@ -13,7 +13,7 @@ urlpatterns = [
     path("hotdeal/", include('hotdeal.urls')),
     path('accounts/', include('allauth.urls')),
     path("keyword_manager/", include('keyword_manager.urls')),
-    
+    path('discord/', include('accounts.urls')),
    
     
 ]
