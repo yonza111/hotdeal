@@ -1,8 +1,10 @@
 # accounts/urls.py
 
+
+
 from django.urls import path
-from .views import discord_callback
+from .views import DiscordCallbackView
 
 urlpatterns = [
-    path('discord/callback/', discord_callback, name='discord_login_callback'),
+    path('discord/callback/', DiscordCallbackView.as_view(), name='discord_login_callback'),
 ]
