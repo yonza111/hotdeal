@@ -10,24 +10,6 @@ from django.contrib.auth.decorators import login_required
 from rest_framework.response import Response
 
 
-class FilteredAllScrappingListView(generics.ListAPIView):
-    serializer_class = ScrappingModelSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-    def get_queryset(self):
-        user = self.request.user
-        keywords = Keyword.objects.filter(user=user)
-        keyword_texts = [keyword.text for keyword in keywords]
-
-        if not keyword_texts:
-            return ScrappingModel.objects.none()
-        else:
-            query = Q()
-            for keyword in keyword_texts:
-                query |= Q(title__icontains=keyword)
-            return ScrappingModel.objects.filter(query, active=True)
-
-
 class FilteredAScrappingListView(generics.ListAPIView):
     serializer_class = ScrappingModelSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -62,16 +44,6 @@ class KeywordListView(generics.ListAPIView):
     def get_queryset(self):
         user = self.request.user
         return Keyword.objects.filter(user=user)
-
-    # def list(self, request, *args, **kwargs):
-    #     response = super().list(request, *args, **kwargs)
-    #     user = self.request.user
-    #     discord_message = DiscordMessage.objects.filter(user=user).first()
-    #     response.data.append({
-    #         'discord_message_active': discord_message.active if discord_message else False,
-    #         'discord_message_pk': discord_message.pk if discord_message else None
-    #     })
-    #     return response   # 왜 있었지?;
 
 
 class DiscordMessageActiveUpdateView(generics.RetrieveUpdateAPIView):

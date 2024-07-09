@@ -1,6 +1,6 @@
 # keyword_manager/urls.py
 from django.urls import path
-from .views import (FilteredAllScrappingListView,
+from .views import ( # FilteredAllScrappingListView,
                     FilteredAScrappingListView, 
                     KeywordCreateView, 
                     KeywordListView,
@@ -11,7 +11,7 @@ from .views import (FilteredAllScrappingListView,
 app_name = "keyword_manager"
 
 urlpatterns = [
-    path('api/filtered/', FilteredAllScrappingListView.as_view(), name='filtered_scrapping_list'),
+    # path('api/filtered/', FilteredAllScrappingListView.as_view(), name='filtered_scrapping_list'),
     path('api/filtered/<str:keyword>/', FilteredAScrappingListView.as_view(), name='filtered_scrapping_list'),
     path('api/add/', KeywordCreateView.as_view(), name='add_keyword'),
     path('api/list/', KeywordListView.as_view(), name='keyword_list'),
