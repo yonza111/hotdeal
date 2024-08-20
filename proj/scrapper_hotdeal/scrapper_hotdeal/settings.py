@@ -9,7 +9,8 @@
 
 import os
 import sys
-sys.path.append('C:/Users/yongja/Desktop/DJANGO/hotdeal_django/proj')
+sys.path.append('/app')  # Docker 컨테이너 내의 경로로 수정
+# sys.path.append('C:/Users/yongja/Desktop/DJANGO/hotdeal_django/proj')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'proj.settings'
 
 # Django 설정을 로드

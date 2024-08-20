@@ -14,7 +14,7 @@ load_dotenv()
 SECRET_KEY = 'django-insecure-chqcf0tr_1#hl*r2maua#nbm&crf&!d3f*zhun@#-6k$(rwhy('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -83,6 +83,9 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # React 애플리케이션의 주소
     "http://127.0.0.1:3000",   # React 애플리케이션의 주소
+    "http://loaclhost",
+    "http://nginx",
+    
 ]
 
 ROOT_URLCONF = 'proj.urls'
@@ -115,7 +118,7 @@ DATABASES = {
         'NAME': 'hotdeal',
         'USER': os.getenv('DATABASES_USER'),
         'PASSWORD': os.getenv('DATABASES_PASSWORD'),
-        'HOST': os.getenv('DATABASES_HOST'),
+        'HOST': 'db',
         'PORT': os.getenv('DATABASES_PORT'),
     }
 }

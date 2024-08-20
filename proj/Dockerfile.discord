@@ -1,0 +1,44 @@
+# Base image
+FROM python:3.11.4-slim
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Set work directory
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    gcc \
+    default-libmysqlclient-dev \
+    pkg-config \
+    cron \
+    dos2unix \
+    && apt-get clean
+
+# Install Python dependencies
+COPY requirements.txt /app/
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy project
+COPY . /app/
+
+# Add crontab file
+COPY discord-crontab /etc/cron.d/discord-crontab
+
+# Convert crontab file to Unix format
+RUN dos2unix /etc/cron.d/discord-crontab
+
+# Give execution rights on the cron job
+RUN chmod 0644 /etc/cron.d/discord-crontab
+
+# Apply cron job
+RUN crontab /etc/cron.d/discord-crontab
+
+# Create the log file to be able to run tail
+RUN touch /var/log/cron.log
+RUN chmod 666 /var/log/cron.log
+
+# Run the command on container startup
+CMD cron && tail -f /var/log/cron.log

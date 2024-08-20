@@ -15,7 +15,8 @@ const ScrappingListView = () => {
   useEffect(() => {
     const fetchScrappings = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/hotdeal/api/scrappinglist/');
+        // const response = await axios.get('http://127.0.0.1:8000/hotdeal/api/scrappinglist/');
+        const response = await axios.get(`/api/hotdeal/api/scrappinglist/`);
         console.log('Data:', response.data); // 데이터 확인
         setScrappings(response.data);
       } catch (error) {

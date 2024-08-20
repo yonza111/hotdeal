@@ -9,7 +9,8 @@ const DiscordMessageActiveUpdate = () => {
 
     useEffect(() => {
         const fetchDiscordMessageActiveStatus = () => {
-            axios.get(`http://127.0.0.1:8000/keyword_manager/api/active/${user.id}/`, {
+            // axios.get(`http://127.0.0.1:8000/keyword_manager/api/active/${user.id}/`, {
+            axios.get(`/api/keyword_manager/api/active/${user.id}/`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -29,7 +30,8 @@ const DiscordMessageActiveUpdate = () => {
 
     const handleToggleActive = () => {
         const newActiveStatus = !discordMessageActive;
-        axios.put(`http://127.0.0.1:8000/keyword_manager/api/active/${user.id}/`, { active: newActiveStatus }, {
+        // axios.put(`http://127.0.0.1:8000/keyword_manager/api/active/${user.id}/`, { active: newActiveStatus }, {
+        axios.put(`/api/keyword_manager/api/active/${user.id}/`, { active: newActiveStatus }, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }

@@ -10,7 +10,8 @@ const ScrappingDetail = () => {
   useEffect(() => {
     const fetchScrappingDetail = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/hotdeal/api/scrappinglist/${id}/`); // URL에서 가져온 id 사용
+        // const response = await axios.get(`http://127.0.0.1:8000/hotdeal/api/scrappinglist/${id}/`); // 개발시
+        const response = await axios.get(`/api/hotdeal/api/scrappinglist/${id}/`);
         setScrapping(response.data);
       } catch (error) {
         console.error('Error fetching scrapping detail:', error);

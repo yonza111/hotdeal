@@ -1,0 +1,67 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: proj/Dockerfile
+    container_name: backend
+    volumes:
+      - ./proj:/app
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    container_name: frontend
+    expose:
+      - 80
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./frontend/build:/usr/share/nginx/html  # 프론트엔드 빌드된 파일들을 Nginx의 HTML 폴더로 매핑
+    ports:
+      - "80:80"
+    depends_on:
+      - frontend
+      - backend
+
+  db:
+    image: mysql:8.0.33
+    container_name: db
+    restart: always
+    environment:
+      MYSQL_DATABASE: hotdeal
+      MYSQL_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+
+  discordbot:
+    build:
+      context: ./proj
+      dockerfile: Dockerfile.discord
+    container_name: discordbot
+    env_file:
+      - .env
+    depends_on:
+      - db
+
+  scrapy:
+    build:
+      context: ./proj
+      dockerfile: Dockerfile.scrapy
+    container_name: scrapy
+    env_file:
+      - .env
+    depends_on:
+      - db
+
+volumes:
+  db_data:

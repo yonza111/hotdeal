@@ -11,7 +11,8 @@ const KeywordList = () => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      axios.get(`http://127.0.0.1:8000/keyword_manager/api/list/`, {
+      // axios.get(`http://127.0.0.1:8000/keyword_manager/api/list/`, {
+      axios.get(`/api/keyword_manager/api/list/`, {
         headers: {
           'Authorization': `Bearer ${user.token}`
         }
@@ -36,7 +37,8 @@ const KeywordList = () => {
       return;
     }
 
-    axios.post('http://127.0.0.1:8000/keyword_manager/api/add/', { text: newKeyword }, {
+    // axios.post('http://127.0.0.1:8000/keyword_manager/api/add/', { text: newKeyword }, {
+    axios.post('/api/keyword_manager/api/add/', { text: newKeyword }, {
       headers: {
         'Authorization': `Bearer ${user.token}`
       }
@@ -52,7 +54,8 @@ const KeywordList = () => {
   };
 
   const handleKeywordDelete = (id) => {
-    axios.delete(`http://127.0.0.1:8000/keyword_manager/api/delete/${id}/`, {
+    // axios.delete(`http://127.0.0.1:8000/keyword_manager/api/delete/${id}/`, {
+    axios.delete(`/api/keyword_manager/api/delete/${id}/`, {
       headers: {
         'Authorization': `Bearer ${user.token}`
       }

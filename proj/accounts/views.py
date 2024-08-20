@@ -41,7 +41,8 @@ class DiscordCallbackView(GenericAPIView):
         token_url = 'https://discord.com/api/oauth2/token'
         client_id = os.getenv('DISCORD_CLIENT_ID')
         client_secret = os.getenv('DISCORD_CLIENT_SECRET')  # 수정: 잘못된 환경 변수명 수정
-        redirect_uri = 'http://127.0.0.1:3000/auth/'
+        # redirect_uri = 'http://127.0.0.1:3000/auth/'
+        redirect_uri = 'http://localhost/auth/'
         
         data = {
             'client_id': client_id,

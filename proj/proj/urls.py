@@ -9,11 +9,11 @@ urlpatterns = [
     # Optional UI:
     path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
-    path('admin/', admin.site.urls),
-    path("hotdeal/", include('hotdeal.urls')),
-    path('accounts/', include('allauth.urls')),
-    path("keyword_manager/", include('keyword_manager.urls')),
-    path('discord/', include('accounts.urls')),
+    path('api/admin/', admin.site.urls),
+    path("api/hotdeal/", include('hotdeal.urls')),
+    path('api/accounts/', include('allauth.urls')),
+    path("api/keyword_manager/", include('keyword_manager.urls')),
+    path('api/discord/', include('accounts.urls')),
    
     
 ]

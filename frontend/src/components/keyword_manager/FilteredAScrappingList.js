@@ -10,7 +10,8 @@ const FilteredAScrappingList = () => {
 
   useEffect(() => {
     if (user) {
-      axios.get(`http://127.0.0.1:8000/keyword_manager/api/filtered/${keyword}/`, {
+      // axios.get(`http://127.0.0.1:8000/keyword_manager/api/filtered/${keyword}/`, {
+      axios.get(`/api/keyword_manager/api/filtered/${keyword}/`, {
         headers: {
           'Authorization': `Bearer ${user.token}`
         }
