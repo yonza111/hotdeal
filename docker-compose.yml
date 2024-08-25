@@ -1,8 +1,8 @@
 services:
   backend:
     build:
-      context: .
-      dockerfile: proj/Dockerfile
+      context: ./proj
+      dockerfile: Dockerfile
     container_name: backend
     volumes:
       - ./proj:/app
