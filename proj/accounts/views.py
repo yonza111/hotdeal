@@ -56,10 +56,10 @@ class DiscordCallbackView(GenericAPIView):
         response = requests.post(token_url, data=data)
         
         if response.status_code == 200:
-            print('rrrrr성공')
+            print('success')
             return response.json().get('access_token')
         else:
-            print(f"Error: {response.status_code} - {response.text}")  # 디버깅용
+            print(f"Error: {response.status_code} - {response.text}")  # debugging
             response.raise_for_status()
 
     def get_user_info(self, access_token):
