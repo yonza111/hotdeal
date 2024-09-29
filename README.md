@@ -1,10 +1,10 @@
-기술 스택
-프론트엔드: React, JavaScript, CSS
-백엔드: Django, Django REST Framework, Gunicorn
-데이터베이스: MySQL
-서버: Nginx
-웹 스크래핑: Scrapy
-배포: Docker, Docker Compose
+### 기술 스택
+- 프론트엔드: React, JavaScript, CSS
+- 백엔드: Django, Django REST Framework, Gunicorn
+- 데이터베이스: MySQL
+- 서버: Nginx
+- 웹 스크래핑: Scrapy
+- 배포: Docker, Docker Compose
 
 ### 주요 기능
 - **실시간 핫딜 스크래핑**: 주기적으로 스크래핑 작업을 수행하여 핫딜 정보를 수집하고 표시.
