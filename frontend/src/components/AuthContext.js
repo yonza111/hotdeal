@@ -1,7 +1,7 @@
 // 로그인 상태에 따라 네비게이션 바의 항목을 동적으로 업데이트
 // 로그인 상태를 전역적으로 관리하고, 이를 바탕으로 네비게이션 바를 조건부 렌더링
 // Context API
-// AuthContext.js
+// components/AuthContext.js
 import React, { createContext, useState, useEffect } from 'react';
 
 export const AuthContext = createContext();

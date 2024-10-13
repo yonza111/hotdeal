@@ -1,4 +1,4 @@
-// DiscordLoginButton.js
+// components/DiscordLoginButton.js
 
 
 import React, { useContext } from 'react';

@@ -1,3 +1,4 @@
+// src/components/keyword_manager/FilteredAScrappingList.js
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useParams, Link  } from 'react-router-dom';

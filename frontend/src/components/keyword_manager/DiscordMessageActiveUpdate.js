@@ -1,3 +1,4 @@
+// src/components/keyword_manager/DiscordMessageActiveUpdate.js
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../AuthContext'; // AuthContext 가져오기

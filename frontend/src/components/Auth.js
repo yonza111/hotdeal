@@ -1,4 +1,4 @@
-// Auth.js
+// components/Auth.js
 
 
 import React, { useEffect, useContext } from 'react';
