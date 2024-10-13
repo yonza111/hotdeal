@@ -1,9 +1,7 @@
-from typing import Any
-from django.db.models.query import QuerySet
+
 from django.views.generic import ListView, DetailView
 from .models import ScrappingModel
-from .serializers import ScrappingModelSerializer
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 
 
 def main(request):

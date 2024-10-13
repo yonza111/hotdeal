@@ -20,7 +20,7 @@ class DiscordCallbackView(GenericAPIView):
             access_token = self.get_access_token(code)
             if access_token:
                 user_info = self.get_user_info(access_token)
-                print(user_info)
+                # print(user_info)
 
                 user = self.get_or_create_user_from_discord(user_info, access_token)
                 user_data = UserSerializer(user).data
@@ -32,7 +32,7 @@ class DiscordCallbackView(GenericAPIView):
                 print('user_data :', user_data)
                 return Response({
                     'user': user_data,
-                    'token': token  # JWT 토큰 추가
+                    'token': token  
                 })
         
         return Response({'error': 'Invalid request'}, status=status.HTTP_400_BAD_REQUEST)
@@ -40,7 +40,7 @@ class DiscordCallbackView(GenericAPIView):
     def get_access_token(self, code):
         token_url = 'https://discord.com/api/oauth2/token'
         client_id = os.getenv('DISCORD_CLIENT_ID')
-        client_secret = os.getenv('DISCORD_CLIENT_SECRET')  # 수정: 잘못된 환경 변수명 수정
+        client_secret = os.getenv('DISCORD_CLIENT_SECRET')  
         # redirect_uri = 'http://127.0.0.1:3000/auth/'
         redirect_uri = 'http://localhost/auth/'
         

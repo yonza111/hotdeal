@@ -1,13 +1,18 @@
 # keyword_manager/views.py
-
 from rest_framework import generics, permissions
-from django.urls import reverse_lazy
 from .models import Keyword, DiscordMessage
 from hotdeal.models import ScrappingModel
-from django.db.models import Q
 from .serializers import KeywordSerializer, ScrappingModelSerializer, DiscordMessageSerializer
-from django.contrib.auth.decorators import login_required
 from rest_framework.response import Response
+
+
+class KeywordListView(generics.ListAPIView):
+    serializer_class = KeywordSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Keyword.objects.filter(user=user)
 
 
 class FilteredAScrappingListView(generics.ListAPIView):
@@ -17,7 +22,6 @@ class FilteredAScrappingListView(generics.ListAPIView):
     def get_queryset(self):
         keyword_text = self.kwargs.get('keyword')
         return ScrappingModel.objects.filter(title__icontains=keyword_text, active=True)
-
 
 
 class KeywordCreateView(generics.CreateAPIView):
@@ -37,15 +41,6 @@ class KeywordDeleteView(generics.DestroyAPIView):
         return Keyword.objects.filter(user=user)
 
 
-class KeywordListView(generics.ListAPIView):
-    serializer_class = KeywordSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-    def get_queryset(self):
-        user = self.request.user
-        return Keyword.objects.filter(user=user)
-
-
 class DiscordMessageActiveUpdateView(generics.RetrieveUpdateAPIView):
     serializer_class = DiscordMessageSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -53,14 +48,14 @@ class DiscordMessageActiveUpdateView(generics.RetrieveUpdateAPIView):
     lookup_field = 'pk'
 
     def get_object(self):
-        # 사용자와 관련된 Discord 메시지 객체를 가져옵니다.
+        # user의 Discord 메시지 객체를 가져옴
         user = self.request.user
         queryset = self.get_queryset()
         obj = queryset.filter(user=user).first()
 
         if not obj:
-            # Discord 메시지가 없는 경우 404 응답을 반환합니다.
-            return Response({"detail": "Discord message does not exist for this user."}, status=404)
+            # Discord 메시지가 없는 경우 404 응답을 반환
+            return Response({"Discord message does not exist"}, status=404)
 
         self.check_object_permissions(self.request, obj)
         return obj

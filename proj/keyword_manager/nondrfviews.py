@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 from .models import Keyword, DiscordMessage
-from hotdeal.models import ScrappingModel  # Assuming 'hotdeal' is the app name for ScrappingModel
+from hotdeal.models import ScrappingModel
 from django.db.models import Q
 from django.urls import reverse_lazy
 from .forms import KeywordForm

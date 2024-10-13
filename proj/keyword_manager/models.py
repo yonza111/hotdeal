@@ -20,8 +20,8 @@ class Keyword(models.Model):
         # 데이터베이스 내에서 유일해야 함을 의미
     def __str__(self):
         return self.text
-    
-    
+
+
 
 
 class DiscordMessage(models.Model):

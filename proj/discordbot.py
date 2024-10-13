@@ -6,14 +6,16 @@ django.setup()
 import discord
 import logging
 import asyncio
-# import datetime
-from keyword_manager.models import Keyword, DiscordMessage
+from keyword_manager.models import DiscordMessage
 from hotdeal.models import ScrappingModel
 from django.db.models import Manager
 from asgiref.sync import sync_to_async
-
+import os
+from dotenv import load_dotenv
 from datetime import timedelta
 from django.utils import timezone
+
+load_dotenv()
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)  # 기본 로깅 설정
@@ -104,7 +106,7 @@ bot = HotdealBot(intents=intents)
 
 
 async def run_discord_bot():
-    await bot.start('MTIxOTE0ODA1MDM1NDgwMjc0OQ.Gl2Gn0.Sc2NGH63or1kELi3pbMCHh7KTHLY_x0Q-IX3Po')
+    await bot.start(os.getenv('DISCORD_BOT_TOKEN'))
 
 async def main():
     await run_discord_bot()
